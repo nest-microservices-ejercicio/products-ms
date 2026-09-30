@@ -9,18 +9,30 @@ async function bootstrap() {
 
   const logger = new Logger('Main')
 
-  //? -- 🚫 Sin microservicio
+  //! -- 🚫 Sin microservicio
   // const app = await NestFactory.create(AppModule);
-  //? -- ✅ Con microservicio
+
+  //! -- Microservicio con TCP
+  // const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+  //   AppModule,
+  //   {
+  //     transport: Transport.TCP,
+  //     options: {
+  //       port: envs.port
+  //     }
+  //   }
+  // );
+
+  //? -- Microservicio con NATS
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.NATS,
       options: {
-        port: envs.port
+        servers: envs.natsServers
       }
     }
-  );
+  )
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -29,8 +41,9 @@ async function bootstrap() {
     })
   )
 
-  //? -- 🚫 Sin microservicio
+  //! -- 🚫 Sin microservicio
   //await app.listen(envs.port);
+
   //? -- ✅ Con microservicio
   await app.listen();
 

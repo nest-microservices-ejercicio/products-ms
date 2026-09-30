@@ -1,3 +1,6 @@
+---- utilies
+
+    pnpm add class-transformer class-validator
 
 --- Prisma 6.16
 
@@ -7,6 +10,8 @@
 
     2. Inicializamos Prisma
         pnpm prisma init
+        o
+        pnpm exec prisma init
 
     3. Generamos el cliente
         pnpm prisma generate
@@ -18,3 +23,10 @@
 --- Microservicios
 
     pnpm add @nestjs/microservices
+
+
+--- Nats
+
+    pnpm add nats
+
+
